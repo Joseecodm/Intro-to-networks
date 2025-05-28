@@ -131,5 +131,5 @@ Router# write memory
 
 | Origen → Destino   | Resultado          |
 |--------------------|--------------------|
-| PC1 → PC2 (ping)   | ![Ping PC1→PC2]()  |
-| PC2 → PC1 (ping)   | ![Ping PC2→PC1]()  |
+| PC1 → PC2 (ping)   | ![Ping PC1→PC2](Pictures/PingsPC1/PingsIPV4.png)  |
+| PC2 → PC1 (ping)   | ![Ping PC2→PC1](Pictures/PingsPC2/PingsIPV4.png)  |
