@@ -48,7 +48,7 @@ Digitalizar todo el flujo mediante:
 
 ### 1. Topología de Red
 
-![Topología de red](docs/img/topologia.png)
+![Topología de red](Pictures/Topology.png)
 
 - **Router R1**: 172.16.0.61/27  
 - **Switch SW1**: 172.16.0.62/27  
