@@ -1,0 +1,58 @@
+--- Router configs ---
+
+Router1> enable
+Router1# configure terminal
+
+# Cambiar el nombre del router
+Router1(config)# hostname RD
+RD(config)# banner motd #Acceso restringido#
+
+# Desactivar la búsqueda de DNS para evitar errores por comandos mal escritos
+RD(config)# no ip domain-lookup
+
+# Configurar contraseña de acceso al modo EXEC privilegiado
+RD(config)# enable secret cisco123
+
+# Configurar consola
+RD(config)# line console 0
+RD(config-line)# password consola123
+RD(config-line)# login
+RD(config-line)# exit
+
+# Configurar acceso remoto por Telnet o SSH (VTY)
+RD(config)# line vty 0 4
+RD(config-line)# password vty123
+RD(config-line)# login
+RD(config-line)# exit
+
+RD(config)# ip domain-name ejemplo.com
+RD(config)# username admin secret admin123
+
+# Generar claves RSA (tamaño recomendado: mínimo 1024 bits)
+RD(config)# crypto key generate rsa
+How many bits in the modulus [512]: 1024
+
+# Habilitar solo SSH en las líneas VTY
+RD(config)# line vty 0 4
+RD(config-line)# transport input ssh
+RD(config-line)# login local
+
+# Modo configuracion global
+Router(config)# hostname RD
+RD(config)# ipv6 unicast-routing
+
+# Modo interfaz
+RD(config)# interface g0/1
+RD(config-if)# description "to LAND"
+RD(config-if)# ip address 172.16.0.125 255.255.255.224
+RD(config-if)# ipv6 address 2001:db8:1:d::1/64
+RD(config-if)# ipv6 address fe80::1 link-local
+RD(config-if)# no shutdown
+RD(config-if)# exit
+
+# Regresamos al modo configuracion global
+RD(config)# exit
+
+# Modo privilegiado (verificación)
+RD# show ip interface brief     # IPv4
+RD# show ipv6 interface brief   # IPv6

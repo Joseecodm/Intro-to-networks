@@ -1,0 +1,65 @@
+--- Switch ---
+
+Switch> enable
+Switch# configure terminal
+
+# Cambiar el nombre del switch
+Switch(config)# hostname SW1
+SW1(config)# banner motd #Acceso restringido al switch. Solo personal autorizado. El uso indebido será sancionado.#
+
+# Desactivar la búsqueda de DNS para evitar errores por comandos mal escritos
+SW1(config)# no ip domain-lookup
+
+# Configurar contraseña de acceso al modo EXEC privilegiado
+SW1(config)# enable secret cisco123
+
+# Configurar consola
+SW1(config)# line console 0
+SW1(config-line)# password consola123
+SW1(config-line)# login
+SW1(config-line)# exit
+
+# Configurar acceso remoto por Telnet o SSH (VTY)
+SW1(config)# line vty 0 4
+SW1(config-line)# password vty123
+SW1(config-line)# login
+SW1(config-line)# exit
+
+# Configurar dominio e usuario para SSH
+SW1(config)# ip domain-name ejemplo.com
+SW1(config)# username admin secret admin123
+
+# Generar claves RSA (tamaño recomendado: mínimo 1024 bits)
+SW1(config)# crypto key generate rsa
+How many bits in the modulus [512]: 1024
+
+# Habilitar solo SSH en las líneas VTY y autenticación local
+SW1(config)# line vty 0 4
+SW1(config-line)# transport input ssh
+SW1(config-line)# login local
+SW1(config-line)# exit
+
+# Modo configuracion global
+Switch(config)# sdm prefer dual-ipv4-and-ipv6 default
+Switch(config)# end
+Switch# reload ← (esto reinicia el switch, necesario para aplicar el `sdm prefer`)
+
+# Una vez reiniciado, volvemos a configuración global
+Switch> enable
+Switch# configure terminal
+
+# Configuración de la interfaz VLAN 1
+Switch(config)# interface vlan1
+Switch(config-if)# description "to Admin"
+Switch(config-if)# ip address 172.16.0.126 255.255.255.224
+Switch(config-if)# ipv6 address 2001:db8:1:d::2/64
+Switch(config-if)# ipv6 address fe80::2 link-local
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+
+# Regresamos a modo privilegiado
+Switch(config)# exit
+
+# Modo privilegiado (verificación)
+Switch# show ip interface brief
+Switch# show ipv6 interface brief

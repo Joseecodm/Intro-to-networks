@@ -1,0 +1,18 @@
+--- PC1 ---
+
+ipv4 address: 172.16.0.97 
+subnet mask: 255.255.255.224 
+gateway: 172.16.0.126
+
+ipv6 address 2001:db8:1:d::97/64
+ipv6 gateway 2001:db8:1:d::2
+
+--- PC2 ---
+
+ipv4 address: 172.16.0.98 
+subnet mask: 255.255.255.224 
+gateway: 172.16.0.126
+
+ipv6 address 2001:db8:1:d::98/64 
+ipv6 gateway 2001:db8:1:d::2
+
